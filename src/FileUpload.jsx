@@ -8,11 +8,11 @@ const FileUpload = () => {
   const [status, setStatus] = useState("initial");
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [city, setCity] = useState(""); // Add city state variables
+  const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipAddress, setZipAddress] = useState();
   const [countyAddress, setCountyAddress] = useState("");
-  const [propertyType, setPropertyType] = useState(""); // Add city state variables
+  const [propertyType, setPropertyType] = useState("");
   const [propertySubType, setPropertySubType] = useState("");
   const [selectedSoldDate, setSelectedSoldDate] = useState(null);
   const [mlsStatus, setMlsStatus] = useState("");
@@ -169,7 +169,7 @@ const FileUpload = () => {
         ? selectedSecondEntryDate.toLocaleDateString("en-GB")
         : "";
         console.log("solddate",soldDate)
-      let url = "http://localhost:3001/getData?";
+      let url = `http://localhost:3001/getData?page=${currentPage}&pageSize=${perPage}`;
       if (city) {
         url += `&address_city=${city}`;
       }
@@ -206,7 +206,7 @@ const FileUpload = () => {
           "Content-Type": "application/json",
         },
       });
-
+      setCurrentPage(1)
       if (!result.ok) {
         throw new Error(`HTTP error! Status: ${result.status}`);
       }
@@ -582,7 +582,6 @@ const Table = ({
   );
 };
 
-// ... (rest of the code)
 
 const Pagination = ({
   totalItems,
